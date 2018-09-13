@@ -9,7 +9,7 @@ import time
 import struct
 import math
 
-RATE = 44100
+RATE = 16000
 CHUNK = int(RATE/20) # RATE/number of updates per second
 
 def sound_plot(stream):
@@ -41,15 +41,17 @@ def decibel(data):
 if __name__ == '__main__':
     p = pyaudio.PyAudio()
     stream = p.open(format = pyaudio.paInt16,channels = 1,rate = RATE,
-                    input = True,frames_per_buffer = CHUNK)
-    for i in range(int(20*RATE/CHUNK)):
+                    input = True,frames_per_buffer = CHUNK,input_device_index=2)
+    #for i in range(int(20*RATE/CHUNK)):
+    while True:
         # for 10 seconds
         #sound_plot(stream)
         data = stream.read(CHUNK)
         #r = rms(data)
         de = decibel(data)
+        de = de+90.0
         #print("RMS %.2f" % r)
-        print("Decibel %.2f " % de)
+        print("Decibel %d " % int(de))
     stream.stop_stream()
     stream.close()
     p.terminate()
