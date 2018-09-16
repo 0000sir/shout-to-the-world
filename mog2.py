@@ -2,7 +2,7 @@ import numpy as np
 import ctypes as C
 import cv2
 
-libmog = C.cdll.LoadLibrary('path/to/libmog2.so')
+libmog = C.cdll.LoadLibrary('./libmog2.so')
 
 def getfg(img):
     (rows, cols) = (img.shape[0], img.shape[1])
