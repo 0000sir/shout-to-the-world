@@ -9,8 +9,8 @@ bg = cv2.imread('bg.jpg')
 #video = cv2.VideoCapture('clip.mov')
 video = cv2.VideoCapture(0)
 history = 30
-bs = cv2.createBackgroundSubtractorKNN(detectShadows=False)  # 背景减除器，设置阴影检测
-#bs = cv2.createBackgroundSubtractorMOG2()
+bs = cv2.createBackgroundSubtractorKNN(detectShadows=True)  # 背景减除器，设置阴影检测
+#bs = cv2.createBackgroundSubtractorMOG2(history=20, varThreshold=1, detectShadows=True)
 bs.setHistory(history)
 frames = 0
 
@@ -33,8 +33,8 @@ while True:
     #th = cv2.threshold(fg_mask.copy(), 200, 255, cv2.THRESH_BINARY)[1]
     #th = cv2.erode(th, cv2.getStructuringElement(cv2.MORPH_RECT, (10, 5)), iterations=2)
     #dilated = cv2.dilate(th, cv2.getStructuringElement(cv2.MORPH_RECT, (10, 5)), iterations=2)
-    th = cv2.threshold(fg_mask.copy(), 200, 255, cv2.THRESH_BINARY)[1]
-    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (10, 10))
+    th = cv2.threshold(fg_mask.copy(), 0, 255, cv2.THRESH_TRIANGLE)[1]
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (15, 15))
     opened = cv2.morphologyEx(th, cv2.MORPH_OPEN, kernel)
     closed = cv2.morphologyEx(opened, cv2.MORPH_CLOSE, kernel)
     #image, contours, hier = cv2.findContours(dilated, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
