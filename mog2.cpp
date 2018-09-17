@@ -1,6 +1,8 @@
 #include <opencv2/opencv.hpp>
+#include <opencv2/video/background_segm.hpp>
 
 cv::BackgroundSubtractorMOG2 mog(100, 16, false);
+//cv::BackgroundSubtractorMOG2 mog = cv::BackgroundSubtractorMOG2::createBackgroundSubtractorMOG2();
 
 extern "C" void getfg(int rows, int cols, unsigned char* imgData,
         unsigned char *fgD) {
