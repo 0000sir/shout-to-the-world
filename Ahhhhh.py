@@ -11,8 +11,8 @@ RATE = 16000
 CHUNK = int(RATE/20)
 SWITCH = 60
 
-VIDEO_DEFAULT = "videos/vod1.m4v"
-VIDEO_60 = "videos/vod2.m4v"
+VIDEO_DEFAULT = "videos/ahhh.mp4"
+VIDEO_60 = "videos/ahhh.mp4"
 
 def volume_of(data):
   count = len(data)/2
@@ -24,7 +24,7 @@ def volume_of(data):
       sum_squares += n*n
   rms = math.sqrt( sum_squares / count)
   decibel = 20 * math.log10( rms )
-  return int(decibel+90)
+  return int(decibel+93.97)
 
 def write_dB(img, volume, max, ft):
   height, width = img.shape[:2]
@@ -37,29 +37,29 @@ def write_dB(img, volume, max, ft):
   
   max_text = "最高纪录: %d 分贝" % max
   max_position = (int(width/2 - 200), int(height*0.2))
-  img = ft.draw_text(img, position, text , 48, (255,255,255))
-  img = ft.draw_text(img, max_position, max_text , 48, (255,255,255))
+  img = ft.draw_text(img, position, text , 48, (255,0,0))
+  img = ft.draw_text(img, max_position, max_text , 48, (255,0,0))
   return img
   
 def mix_with_camera(frame, cap1, cap2):
   ret, avatar1 = cap1.read()
-  avatar1 = cv2.resize(avatar1, (320, 240))
+  avatar1 = cv2.resize(avatar1, (160, 120))
   avatar1 = cv2.flip(avatar1, 1)
   ret2, avatar2 = cap2.read()
-  avatar2 = cv2.resize(avatar2, (320, 240))
+  avatar2 = cv2.resize(avatar2, (160, 120))
   avatar2 = cv2.flip(avatar2, 1)
   
   height, width = frame.shape[:2]
-  frame[0:240, 0:320] = avatar1
-  frame[0:240, width-320:width] = avatar2
+  frame[0:120, 0:160] = avatar1
+  frame[0:120, width-160:width] = avatar2
   return frame
   
 if __name__ == '__main__':
   p = pyaudio.PyAudio()
   stream = p.open(format = pyaudio.paInt16,channels = 1,rate = RATE,
-                  input = True,frames_per_buffer = CHUNK,input_device_index=2)
-  camera1 = cv2.VideoCapture(1) # capture camera
-  camera2 = cv2.VideoCapture(2)
+                  input = True,frames_per_buffer = CHUNK,input_device_index=4)
+  camera1 = cv2.VideoCapture(0) # capture camera
+  camera2 = cv2.VideoCapture(1)
   cv2.namedWindow("Camera", cv2.WND_PROP_FULLSCREEN)
   cv2.setWindowProperty("Camera", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
   

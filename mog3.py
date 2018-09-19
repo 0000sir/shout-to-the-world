@@ -29,8 +29,18 @@ if __name__ == '__main__':
     while 1:
         _, f = c.read()
         fg = getfg(f)
+        bg = getbg(f)
         #cv2.imshow('f', f)
-        #cv2.imshow('fg', getfg(f))
-        cv2.imshow('window', getbg(f))
+        #cv2.imshow('window', fg)
+        #cv2.imshow('window', getbg(f))
+        th = cv2.threshold(fg, 0, 255, cv2.THRESH_TRIANGLE)[1]
+        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
+        opened = cv2.morphologyEx(th, cv2.MORPH_OPEN, kernel)
+        closed = cv2.morphologyEx(opened, cv2.MORPH_CLOSE, kernel)
+        output = cv2.bitwise_and(f, f, mask = closed)
+        mask_inv = cv2.bitwise_not(closed)
+        output_bg = cv2.bitwise_and(bg, bg, mask=mask_inv)
+        output = cv2.add(output, output_bg)
+        cv2.imshow('window', output)
         if cv2.waitKey(1) == 27:
             exit(0)

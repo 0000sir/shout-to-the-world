@@ -6,8 +6,7 @@ import numpy as np
 
 bg = cv2.imread('bg.jpg')
 
-#video = cv2.VideoCapture('clip.mov')
-video = cv2.VideoCapture(1)
+video = cv2.VideoCapture(0)
 history = 30
 bs = cv2.createBackgroundSubtractorKNN(detectShadows=True)  # 背景减除器，设置阴影检测
 #bs = cv2.createBackgroundSubtractorMOG2(history=20, varThreshold=1, detectShadows=True)

@@ -41,16 +41,16 @@ def decibel(data):
 if __name__ == '__main__':
     p = pyaudio.PyAudio()
     stream = p.open(format = pyaudio.paInt16,channels = 1,rate = RATE,
-                    input = True,frames_per_buffer = CHUNK,input_device_index=2)
+                    input = True,frames_per_buffer = CHUNK,input_device_index=4)
     #for i in range(int(20*RATE/CHUNK)):
     while True:
         # for 10 seconds
         #sound_plot(stream)
         data = stream.read(CHUNK)
-        #r = rms(data)
+        r = rms(data)
         de = decibel(data)
-        de = de+90.0
-        #print("RMS %.2f" % r)
+        de = de + 94.0
+        print("RMS %.2f" % r)
         print("Decibel %d " % int(de))
     stream.stop_stream()
     stream.close()
