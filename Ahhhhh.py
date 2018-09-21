@@ -11,8 +11,8 @@ RATE = 16000
 CHUNK = int(RATE/20)
 SWITCH = 60
 
-VIDEO_DEFAULT = "videos/ahhh.mp4"
-VIDEO_60 = "videos/ahhh.mp4"
+VIDEO_DEFAULT = "videos/standby.mp4"
+VIDEO_60 = "videos/Ahhhh.mp4"
 
 def volume_of(data):
   count = len(data)/2
@@ -23,8 +23,8 @@ def volume_of(data):
       n = sample * (1.0/32768)
       sum_squares += n*n
   rms = math.sqrt( sum_squares / count)
-  decibel = 20 * math.log10( rms )
-  return int(decibel+93.97)
+  decibel = 20 * math.log10( math.tan(rms) )
+  return int(decibel+94)
 
 def write_dB(img, volume, max, ft):
   height, width = img.shape[:2]
@@ -78,8 +78,6 @@ if __name__ == '__main__':
     if volume > max_volume:
       max_volume = volume
       print max_volume
-
-    #ret1, avatar = cap.read()
     
     if volume < SWITCH:
       playing_video = video_default

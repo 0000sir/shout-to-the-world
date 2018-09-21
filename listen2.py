@@ -36,7 +36,8 @@ def rms(data):
     return math.sqrt( sum_squares / count)
     
 def decibel(data):
-    return 20 * math.log10( rms(data) )
+    return 20 * math.log10( math.tan( rms(data) ) )
+    #return 20 * rms(data)
 
 if __name__ == '__main__':
     p = pyaudio.PyAudio()
@@ -50,7 +51,7 @@ if __name__ == '__main__':
         r = rms(data)
         de = decibel(data)
         de = de + 94.0
-        print("RMS %.2f" % r)
+        print("RMS %.4f" % r)
         print("Decibel %d " % int(de))
     stream.stop_stream()
     stream.close()
