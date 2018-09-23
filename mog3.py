@@ -29,7 +29,8 @@ if __name__ == '__main__':
     while 1:
         _, f = c.read()
         fg = getfg(f)
-        bg = getbg(f)
+        #bg = getbg(f)
+        bg = cv2.imread('bg.jpg')
         #cv2.imshow('f', f)
         #cv2.imshow('window', fg)
         #cv2.imshow('window', getbg(f))
@@ -41,6 +42,6 @@ if __name__ == '__main__':
         mask_inv = cv2.bitwise_not(closed)
         output_bg = cv2.bitwise_and(bg, bg, mask=mask_inv)
         output = cv2.add(output, output_bg)
-        cv2.imshow('window', output)
+        cv2.imshow('window', fg)
         if cv2.waitKey(1) == 27:
             exit(0)

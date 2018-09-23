@@ -1,34 +1,46 @@
 #! /usr/bin/env python
 # -*- encoding: utf-8 -*-
 
+import numpy as np
+import ctypes as C
 import cv2
 
-video = cv2.VideoCapture(0)
-history = 30
-bs = cv2.createBackgroundSubtractorKNN(detectShadows=True)
-bs.setHistory(history)
-frames = 0
+libmog = C.cdll.LoadLibrary('./libmog2000.so')
 
-while True:
-    ret, frame = video.read()
+#cv2.namedWindow("window", cv2.WND_PROP_FULLSCREEN)
+#cv2.setWindowProperty("window",cv2.WND_PROP_FULLSCREEN,cv2.WINDOW_FULLSCREEN)
 
-    if frames < history:
-        frames += 1
-        continue
+def getfg(img):
+    (rows, cols) = (img.shape[0], img.shape[1])
+    res = np.zeros(dtype=np.uint8, shape=(rows, cols))
+    libmog.getfg(img.shape[0], img.shape[1],
+                       img.ctypes.data_as(C.POINTER(C.c_ubyte)),
+                       res.ctypes.data_as(C.POINTER(C.c_ubyte)))
+    return res
 
-    fg_mask = bs.apply(frame)
-    fg_mask = cv2.GaussianBlur(fg_mask, (5,5), 0)
-    bg_mask = cv2.bitwise_not(fg_mask)
-    th = cv2.threshold(bg_mask.copy(), 255, 0, cv2.THRESH_TRIANGLE)[1]
-    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (15, 15))
-    opened = cv2.morphologyEx(th, cv2.MORPH_OPEN, kernel)
-    closed = cv2.morphologyEx(opened, cv2.MORPH_CLOSE, kernel)
 
-    bg = cv2.bitwise_and(frame, frame, mask = bg_mask)
+def getbg(img):
+    (rows, cols) = (img.shape[0], img.shape[1])
+    res = np.zeros(dtype=np.uint8, shape=(rows, cols, 3))
 
-    cv2.imshow('bg', bg)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+    libmog.getbg(rows, cols, res.ctypes.data_as(C.POINTER(C.c_ubyte)))
+    return res
 
-video.release()
-cv2.destroyAllWindows()
+count = 0
+
+if __name__ == '__main__':
+    c = cv2.VideoCapture(0)
+    print("Generating background, Please wait a few seconds ...")
+    while 1:
+        _, f = c.read()
+        fg = getfg(f)
+        bg = getbg(f)
+        if count < 500:
+            count += 1
+            continue
+        #cv2.imshow('f', f)
+        #cv2.imshow('fg', getfg(f))
+        #cv2.imshow('window', bg)
+        cv2.imwrite('bg.jpg', bg)
+        #if cv2.waitKey(1) == 27:
+        #   exit(0)
