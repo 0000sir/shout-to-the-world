@@ -42,7 +42,7 @@ def decibel(data):
 if __name__ == '__main__':
     p = pyaudio.PyAudio()
     stream = p.open(format = pyaudio.paInt16,channels = 1,rate = RATE,
-                    input = True,frames_per_buffer = CHUNK,input_device_index=4)
+                    input = True,frames_per_buffer = CHUNK,input_device_index=5)
     #for i in range(int(20*RATE/CHUNK)):
     while True:
         # for 10 seconds

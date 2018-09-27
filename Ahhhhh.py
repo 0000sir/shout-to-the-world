@@ -43,15 +43,15 @@ def write_dB(img, volume, max, ft):
   
 def mix_with_camera(frame, cap1, cap2):
   ret, avatar1 = cap1.read()
-  avatar1 = cv2.resize(avatar1, (160, 120))
+  avatar1 = cv2.resize(avatar1, (320, 240))
   avatar1 = cv2.flip(avatar1, 1)
   ret2, avatar2 = cap2.read()
-  avatar2 = cv2.resize(avatar2, (160, 120))
+  avatar2 = cv2.resize(avatar2, (320, 240))
   avatar2 = cv2.flip(avatar2, 1)
   
   height, width = frame.shape[:2]
-  frame[0:120, 0:160] = avatar1
-  frame[0:120, width-160:width] = avatar2
+  frame[0:240, 0:320] = avatar1
+  frame[0:240, width-320:width] = avatar2
   return frame
   
 if __name__ == '__main__':

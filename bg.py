@@ -42,5 +42,6 @@ if __name__ == '__main__':
         #cv2.imshow('fg', getfg(f))
         #cv2.imshow('window', bg)
         cv2.imwrite('bg.jpg', bg)
+        exit(0)
         #if cv2.waitKey(1) == 27:
         #   exit(0)
