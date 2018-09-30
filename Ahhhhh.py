@@ -9,7 +9,7 @@ import ft2
 
 RATE = 16000
 CHUNK = int(RATE/20)
-SWITCH = 60
+SWITCH = 70
 
 VIDEO_DEFAULT = "videos/standby.mp4"
 VIDEO_60 = "videos/Ahhhh.mp4"
@@ -33,10 +33,13 @@ def write_dB(img, volume, max, ft):
     position = (int(width/2 - 96),int(height*0.1))
   else:
     text = "请开始呐喊"
-    position = (int(width/2 - 134),int(height*0.1))
+    #position = (int(width/2 - 134),int(height*0.1))
+
+  position = (380,60)
   
   max_text = "最高纪录: %d 分贝" % max
-  max_position = (int(width/2 - 200), int(height*0.2))
+  #max_position = (int(width/2 - 200), int(height*0.2))
+  max_position = (1140,60)
   img = ft.draw_text(img, position, text , 48, (255,0,0))
   img = ft.draw_text(img, max_position, max_text , 48, (255,0,0))
   return img
@@ -57,7 +60,7 @@ def mix_with_camera(frame, cap1, cap2):
 if __name__ == '__main__':
   p = pyaudio.PyAudio()
   stream = p.open(format = pyaudio.paInt16,channels = 1,rate = RATE,
-                  input = True,frames_per_buffer = CHUNK,input_device_index=4)
+                  input = True,frames_per_buffer = CHUNK,input_device_index=5)
   camera1 = cv2.VideoCapture(0) # capture camera
   camera2 = cv2.VideoCapture(1)
   cv2.namedWindow("Camera", cv2.WND_PROP_FULLSCREEN)
@@ -77,7 +80,7 @@ if __name__ == '__main__':
     volume = volume_of(data)
     if volume > max_volume:
       max_volume = volume
-      print max_volume
+      #print max_volume
     
     if volume < SWITCH:
       playing_video = video_default

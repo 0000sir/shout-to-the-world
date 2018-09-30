@@ -2,3 +2,5 @@
 sound.png
 videos/*
 bg.jpg
+!videos/standby.mp4
+!videos/Ahhhh.mp4
