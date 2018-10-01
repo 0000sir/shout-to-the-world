@@ -47,10 +47,11 @@ def write_dB(img, volume, max, ft):
 def mix_with_camera(frame, cap1, cap2):
   ret, avatar1 = cap1.read()
   avatar1 = cv2.resize(avatar1, (320, 240))
-  avatar1 = cv2.flip(avatar1, 1)
-  ret2, avatar2 = cap2.read()
-  avatar2 = cv2.resize(avatar2, (320, 240))
-  avatar2 = cv2.flip(avatar2, 1)
+  avatar1 = cv2.flip(avatar1, 0)
+  avatar2 = avatar1
+  #ret2, avatar2 = cap2.read()
+  #avatar2 = cv2.resize(avatar2, (320, 240))
+  #avatar2 = cv2.flip(avatar2, 1)
   
   height, width = frame.shape[:2]
   frame[0:240, 0:320] = avatar1
@@ -60,9 +61,10 @@ def mix_with_camera(frame, cap1, cap2):
 if __name__ == '__main__':
   p = pyaudio.PyAudio()
   stream = p.open(format = pyaudio.paInt16,channels = 1,rate = RATE,
-                  input = True,frames_per_buffer = CHUNK,input_device_index=5)
+                  input = True,frames_per_buffer = CHUNK,input_device_index=4)
   camera1 = cv2.VideoCapture(0) # capture camera
-  camera2 = cv2.VideoCapture(1)
+  #camera2 = cv2.VideoCapture(1)
+  camera2 = camera1
   cv2.namedWindow("Camera", cv2.WND_PROP_FULLSCREEN)
   cv2.setWindowProperty("Camera", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
   

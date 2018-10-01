@@ -1,5 +1,3 @@
 #! /bin/bash
 
-cd /home/dutchman/shout-to-the-world
-/usr/bin/python Ahhhhh.py
-
+gnome-terminal -x /bin/bash -c "cd ~/shout-to-the-world && /usr/bin/python Ahhhhh.py"
