@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ubuntu/envs/tensorflow/workdir/shout-to-the-world/bgfg/bgfg_segm.cpp
+opencv2/core/core.hpp
+/home/ubuntu/envs/tensorflow/workdir/shout-to-the-world/bgfg/opencv2/core/core.hpp
+opencv2/imgproc/imgproc.hpp
+/home/ubuntu/envs/tensorflow/workdir/shout-to-the-world/bgfg/opencv2/imgproc/imgproc.hpp
+opencv2/video/background_segm.hpp
+/home/ubuntu/envs/tensorflow/workdir/shout-to-the-world/bgfg/opencv2/video/background_segm.hpp
+opencv2/highgui/highgui.hpp
+/home/ubuntu/envs/tensorflow/workdir/shout-to-the-world/bgfg/opencv2/highgui/highgui.hpp
+stdio.h
+-
+iostream
+-
+

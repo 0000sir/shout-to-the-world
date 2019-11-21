@@ -1,0 +1,3 @@
+/home/ubuntu/envs/tensorflow/workdir/shout-to-the-world/bgfg/CMakeFiles/rebuild_cache.dir
+/home/ubuntu/envs/tensorflow/workdir/shout-to-the-world/bgfg/CMakeFiles/bgfg_segm.dir
+/home/ubuntu/envs/tensorflow/workdir/shout-to-the-world/bgfg/CMakeFiles/edit_cache.dir

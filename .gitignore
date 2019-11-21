@@ -4,3 +4,9 @@ videos/*
 bg.jpg
 !videos/standby.mp4
 !videos/Ahhhh.mp4
+**/*.mp4
+**/*.avi
+**/*.m4v
+**/*.mp3
+**/*.m4a
+**/*.mov
